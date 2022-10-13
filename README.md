@@ -11,7 +11,7 @@ The tools in this repository should allow you to determine this propagation dela
 
 ## How does this work
 For this project the IPv6 prefix ```2602:fb2a:00c0::/48``` was set apart and [configured as AWS BYOIP](https://www.edge-cloud.net/2022/07/19/hands-on-with-aws-byoip/). In addition a Lambda script triggers regular announce and withdraw actions on this particular prefix. 
-More specifically this AWS BYOIP range is announced every even hour (UTC) and withdrawn every uneven hour (UTC). There looking at BGP route tables at various places around the globe aound this time will provide an indication of the propagation times. 
+More specifically this AWS BYOIP range is announced every even hour (UTC) and withdrawn every uneven hour (UTC). Therefore looking at BGP route tables at various places around the globe aound this time will provide an indication of the propagation times. 
 
 ### Backend
 On the "backend" side a [Lambda Script](https://github.com/chriselsen/AWS-BYOIP-Propagation/blob/main/backend/LambdaAnnounceWithdrawBYOIP.py) is triggered via [EventBridge every hour on the hour](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html). 

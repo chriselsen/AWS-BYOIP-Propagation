@@ -1,4 +1,4 @@
-# AWS Bring your own IP addresses (BYOIP) propagation times. 
+# AWS Bring your own IP addresses (BYOIP) propagation times 
 This repository provides tool for the research of BGP propagation times for AWS Bring-your-own-IP (BYOIP)
 
 ## What is BYOIP?

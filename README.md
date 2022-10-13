@@ -1,2 +1,52 @@
-# AWS-BYOIP-Propagation
-Research BGP propagation times around the globe for AWS Bring-your-own-IP (BYOIP)
+# AWS Bring your own IP addresses (BYOIP) propagation times. 
+This repository provides tool for the research of BGP propagation times for AWS Bring-your-own-IP (BYOIP)
+
+## What is BYOIP?
+With AWS BYOIP (VP) you can bring part or all of your publicly routable IPv4 or IPv6 address range from your on-premises network to your AWS account. You continue to control the address range, but by default, AWS advertises it on the internet. After you bring the address range to AWS, it appears in your AWS account as an address pool.
+
+## BGP propagation times
+When announcing or withdrawing a BGP prefix, these changes are not instantly visible throughout all autonomous systems (AS) that make up the Internet. Due to various factors, there are certain delays for this propagation. In the case of AWS BYOIP, in addition to the BGP propagation delay an additional delay after calling the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) or [WithdrawByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_WithdrawByoipCidr.html) API has to be factored in. 
+
+The tools in this repository should allow you to determine this propagation delay - consisting of the delay due to the processing of the AWS VPC API as well as the inherent delays of BGP route updates across the global Internet. 
+
+## How does this work
+For this project the IPv6 prefix ```2602:fb2a:00c0::/48``` was set apart and [configured as AWS BYOIP](https://www.edge-cloud.net/2022/07/19/hands-on-with-aws-byoip/). In addition a Lambda script triggers regular announce and withdraw actions on this particular prefix. 
+More specifically this AWS BYOIP range is announced every even hour (UTC) and withdrawn every uneven hour (UTC). There looking at BGP route tables at various places around the globe aound this time will provide an indication of the propagation times. 
+
+### Backend
+On the "backend" side a [Lambda Script](https://github.com/chriselsen/AWS-BYOIP-Propagation/blob/main/backend/LambdaAnnounceWithdrawBYOIP.py) is triggered via [EventBridge every hour on the hour](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html). 
+
+On even hours (UTC) the event action of "advertise" triggeres the configured BYOIP CIDR to be advertised. 
+On uneven hours (UTC) the event action of "withdraw" causes the CIDR to be withdrawn.
+As EventBridge triggered Lambda scripts run with a slight random delay, the exact timestamp of the last run
+can be determined here: ```https://www.edge-cloud.net/byoip-propagation/us-east-1.html```
+
+### Frontend
+You can run the "frontend" client - a [Python script](https://github.com/chriselsen/AWS-BYOIP-Propagation/blob/main/scripts/ripe-ris-byoip-client.py) that uses the [RIPE Routing Information Service Live (RIS Live) feed](https://ris-live.ripe.net/). RIS Live is a feed that offers BGP messages in real-time. It collects information from the RIS Route Collectors (RRCs) and uses a WebSocket JSON API to monitor and detect routing events around the world.
+
+By selectively listening to BGP messages related to the IPv6 prefix ```2602:fb2a:00c0::/48``` around hour marks, you can compare the timestamp of messages received by the various RIS Route Collectors (RRCs) to the timestamp from ```https://www.edge-cloud.net/byoip-propagation/us-east-1.html``` on when the corresponding change at the source occured. 
+
+## Examples
+
+Below you can see the screenshot from ```https://ris-live.ripe.net/``` where an "announcement" UPDATE message was received from ASN 19151 by the RIS Route Collector [RRC14 (PAIX, Palo Alto, California, US)](https://www.ris.ripe.net/peerlist/rrc14.shtml) at the timestamp 1665619241.04. 
+
+![](https://raw.githubusercontent.com/chriselsen/AWS-BYOIP-Propagation/main/examples/BYOIP-RIPE-RIS-Output.png)
+
+Looking at the output of ```https://www.edge-cloud.net/byoip-propagation/us-east-1.html``` around this time would provide you with:
+```
+action: advertise
+prefix: 2602:fb2a:00c0::/48
+date: 2022-10-13 00:00:05
+timestamp: 1665619205.24
+```
+
+Calculating the difference of these timestamps ( 1665619241.04 - 1665619205.24 = 35.8 ) will therefore allow you to determine that this particular ASN at PAIX, Palo Alto, California, US had converged to have a path for the IPv6 prefix ```2602:fb2a:00c0::/48``` 35.8 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
+
+## Analyzing data
+
+Using the [RIPE RIS AWS BYOIP example script](https://github.com/chriselsen/AWS-BYOIP-Propagation/blob/main/scripts/ripe-ris-byoip-client.py) you can e.g. collect the above propagation time for multiple locations and ASN and create a histogram of the propagation delays. 
+
+Below is an example, where you can see that a majority of ASN have converged at around 18.3 seconds, as well as 19.3 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
+
+![](https://raw.githubusercontent.com/chriselsen/AWS-BYOIP-Propagation/main/examples/BYOIP-Propagation-Times.png)
+

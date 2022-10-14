@@ -6,7 +6,7 @@ On even hours (UTC) the event action of "advertise" triggeres the configured BYO
 On uneven hours (UTC) the event action of "withdraw" causes the CIDR to be withdrawn.
 
 As EventBridge triggered Lambda scripts run with a slight random delay, the exact timestamp of the last run
-can be determined here: https://www.edge-cloud.net/byoip-propagation/us-east-1.html
+can be determined here: https://byoip.as213151.net/us-east-1.html
 """
 import json
 import boto3

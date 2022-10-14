@@ -2,7 +2,7 @@
 Subscribe to a RIS Live stream and output data about updates (announce, withdraw) from a certain AWS BYOIP range.
 This AWS BYOIP range is announced every even hour (UTC) and withdrawn every uneven hour (UTC). 
 Information about last action and exact timestamp for this action:
-https://www.edge-cloud.net/byoip-propagation/us-east-1.html
+https://byoip.as213151.net/us-east-1.html
 
 IMPORTANT: this example requires 'websocket-client' for Python 2 or 3.
 

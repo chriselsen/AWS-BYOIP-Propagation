@@ -34,6 +34,7 @@ Below you can see the screenshot from ```https://ris-live.ripe.net/``` where an 
 
 Looking at the output of ```https://byoip.as213151.net/us-east-1.html``` around this time would provide you with:
 ```
+aws-region: us-east-1
 action: advertise
 prefix: 2602:fb2a:00c0::/48
 date: 2022-10-13 00:00:05

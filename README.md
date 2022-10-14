@@ -10,7 +10,7 @@ When announcing or withdrawing a BGP prefix, these changes are not instantly vis
 The tools in this repository should allow you to determine this propagation delay - consisting of the delay due to the processing of the AWS VPC API as well as the inherent delays of BGP route updates across the global Internet. 
 
 ## How does this work
-For this project the IPv6 prefix ```2602:fb2a:00c0::/48``` was set apart and [configured as AWS BYOIP](https://www.edge-cloud.net/2022/07/19/hands-on-with-aws-byoip/). In addition a Lambda script triggers regular announce and withdraw actions on this particular prefix. 
+For this project the IPv6 prefix ```2602:fb2a:00c0::/48``` was set aside and [configured as AWS BYOIP](https://www.edge-cloud.net/2022/07/19/hands-on-with-aws-byoip/). In addition a Lambda script triggers regular announce and withdraw actions on this particular prefix. 
 More specifically this AWS BYOIP range is announced every even hour (UTC) and withdrawn every uneven hour (UTC). Therefore looking at BGP route tables at various places around the globe aound this time will provide an indication of the propagation times. 
 
 ### Backend

@@ -1,8 +1,8 @@
 # AWS Bring your own IP addresses (BYOIP) propagation times 
-This repository provides tool for the research of BGP propagation times for AWS Bring-your-own-IP (BYOIP)
+This repository provides tools for the research of BGP propagation times for [AWS Bring-your-own-IP (BYOIP)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html)
 
 ## What is BYOIP?
-With AWS BYOIP (VP) you can bring part or all of your publicly routable IPv4 or IPv6 address range from your on-premises network to your AWS account. You continue to control the address range, but by default, AWS advertises it on the internet. After you bring the address range to AWS, it appears in your AWS account as an address pool.
+With [AWS BYOIP (VPC)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html) you can bring part or all of your publicly routable IPv4 or IPv6 address range from your on-premises network to your AWS account. You continue to control the address range, but by default, AWS advertises it on the internet. After you bring the address range to AWS, it appears in your AWS account as an address pool.
 
 ## BGP propagation times
 When announcing or withdrawing a BGP prefix, these changes are not instantly visible throughout all autonomous systems (AS) that make up the Internet. Due to various factors, there are certain delays for this propagation. In the case of AWS BYOIP, in addition to the BGP propagation delay an additional delay after calling the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) or [WithdrawByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_WithdrawByoipCidr.html) API has to be factored in. 

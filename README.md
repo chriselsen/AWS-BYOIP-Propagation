@@ -26,6 +26,8 @@ You can run the "frontend" client - a [Python script](https://github.com/chrisel
 
 By selectively listening to BGP messages related to the IPv6 prefix ```2602:fb2a:00c0::/48``` around hour marks, you can compare the timestamp of messages received by the various RIS Route Collectors (RRCs) to the timestamp from ```https://byoip.as213151.net/us-east-1.html``` on when the corresponding change at the source occured. 
 
+As an alternative you can also look at the [RIPE Routing Information Service Live (RIS Live) feed](https://ris-live.ripe.net/) directly via a browser. 
+
 ## Examples
 
 Below you can see the screenshot from ```https://ris-live.ripe.net/``` where an "announcement" UPDATE message was received from ASN 19151 by the RIS Route Collector [RRC14 (PAIX, Palo Alto, California, US)](https://www.ris.ripe.net/peerlist/rrc14.shtml) at the timestamp 1665619241.04. 

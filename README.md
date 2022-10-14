@@ -42,7 +42,7 @@ timestamp: 1665619205.24
 
 Calculating the difference of these timestamps ( 1665619241.04 - 1665619205.24 = 35.8 ) will therefore allow you to determine that this particular ASN at PAIX, Palo Alto, California, US had converged to have a path for the IPv6 prefix ```2602:fb2a:00c0::/48``` 35.8 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
 
-If you are only interested in learning when a certain ASN - e.g. AS213151 - receives the update, stick ```^213151``` into the "path" field. 
+If you are only interested in learning when a certain ASN - e.g. AS213151 - receives the update, stick ```^213151``` into the "path" field if that ASN [peers with RIPE RIS](https://www.ris.ripe.net/peerlist/all.shtml) or ```213151``` otherwise. 
 
 ## Analyzing data
 

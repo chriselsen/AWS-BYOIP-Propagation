@@ -18,7 +18,7 @@ On the "backend" side a [Lambda Script](https://github.com/chriselsen/AWS-BYOIP-
 
 On even hours (UTC) the event action of "advertise" triggeres the configured BYOIP CIDR to be advertised. 
 On uneven hours (UTC) the event action of "withdraw" causes the CIDR to be withdrawn.
-As EventBridge triggered Lambda scripts run with a slight random delay, the exact timestamp of the last run
+As EventBridge triggered Lambda scripts run with a slight random delay of a few seconds, the exact timestamp of the last run
 can be determined here: ```https://byoip.as213151.net/us-east-1.html```
 
 ### Frontend

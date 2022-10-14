@@ -19,12 +19,12 @@ On the "backend" side a [Lambda Script](https://github.com/chriselsen/AWS-BYOIP-
 On even hours (UTC) the event action of "advertise" triggeres the configured BYOIP CIDR to be advertised. 
 On uneven hours (UTC) the event action of "withdraw" causes the CIDR to be withdrawn.
 As EventBridge triggered Lambda scripts run with a slight random delay, the exact timestamp of the last run
-can be determined here: ```https://www.edge-cloud.net/byoip-propagation/us-east-1.html```
+can be determined here: ```https://byoip.as213151.net/us-east-1.html```
 
 ### Frontend
 You can run the "frontend" client - a [Python script](https://github.com/chriselsen/AWS-BYOIP-Propagation/blob/main/scripts/ripe-ris-byoip-client.py) that uses the [RIPE Routing Information Service Live (RIS Live) feed](https://ris-live.ripe.net/). RIS Live is a feed that offers BGP messages in real-time. It collects information from the RIS Route Collectors (RRCs) and uses a WebSocket JSON API to monitor and detect routing events around the world.
 
-By selectively listening to BGP messages related to the IPv6 prefix ```2602:fb2a:00c0::/48``` around hour marks, you can compare the timestamp of messages received by the various RIS Route Collectors (RRCs) to the timestamp from ```https://www.edge-cloud.net/byoip-propagation/us-east-1.html``` on when the corresponding change at the source occured. 
+By selectively listening to BGP messages related to the IPv6 prefix ```2602:fb2a:00c0::/48``` around hour marks, you can compare the timestamp of messages received by the various RIS Route Collectors (RRCs) to the timestamp from ```https://byoip.as213151.net/us-east-1.html``` on when the corresponding change at the source occured. 
 
 ## Examples
 
@@ -32,7 +32,7 @@ Below you can see the screenshot from ```https://ris-live.ripe.net/``` where an 
 
 ![](https://raw.githubusercontent.com/chriselsen/AWS-BYOIP-Propagation/main/examples/BYOIP-RIPE-RIS-Output.png)
 
-Looking at the output of ```https://www.edge-cloud.net/byoip-propagation/us-east-1.html``` around this time would provide you with:
+Looking at the output of ```https://byoip.as213151.net/us-east-1.html``` around this time would provide you with:
 ```
 action: advertise
 prefix: 2602:fb2a:00c0::/48

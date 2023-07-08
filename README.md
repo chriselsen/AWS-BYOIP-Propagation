@@ -1,6 +1,11 @@
 # AWS Bring your own IP addresses (BYOIP) propagation times 
 This repository provides tools for the research of BGP propagation times for [AWS Bring-your-own-IP (BYOIP)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html)
 
+**If you enjoy this work, please consider sponsoring:**
+
+[![Buy Me A Coffee](https://github.com/chriselsen/chriselsen/assets/5304256/564ee36a-0f3a-4d8b-9b4e-5437a0d3e660)](https://www.buymeacoffee.com/chriselsen)
+[![Support via PayPal](https://cdn.jsdelivr.net/gh/twolfson/paypal-github-button@1.0.0/dist/button.svg)](https://www.paypal.me/christianelsen)
+
 ## What is BYOIP?
 With [AWS BYOIP (VPC)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html) you can bring part or all of your publicly routable IPv4 or IPv6 address range from your on-premises network to your AWS account. You continue to control the address range, but by default, AWS advertises it on the internet. After you bring the address range to AWS, it appears in your AWS account as an address pool.
 

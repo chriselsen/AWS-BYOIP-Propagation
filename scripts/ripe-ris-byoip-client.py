@@ -14,7 +14,7 @@ import websocket
 ws = websocket.WebSocket()
 ws.connect("wss://ris-live.ripe.net/v1/ws/?client=aws-byoip-propagation-client-1")
 params = {
-    "prefix":"2602:fb2a:00c0::/46",
+    "prefix":"2602:fb2a:ff::/48",
                     }
 ws.send(json.dumps({
     "type": "ris_subscribe",

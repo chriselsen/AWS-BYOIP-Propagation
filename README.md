@@ -16,7 +16,7 @@ When announcing or withdrawing a BGP prefix, these changes are not instantly vis
 The tools in this repository should allow you to determine this propagation delay - consisting of the delay due to the processing of the AWS VPC API as well as the inherent delays of BGP route updates across the global Internet. 
 
 ## How does this work
-For this project the IPv6 prefix ```2602:fb2a:00c0::/48``` was set aside and [configured as AWS BYOIP](https://www.edge-cloud.net/2022/07/19/hands-on-with-aws-byoip/). In addition a Lambda script triggers regular announce and withdraw actions on this particular prefix. 
+For this project the IPv6 prefix ```2602:fb2a:ff::/48``` was set aside and [configured as AWS BYOIP](https://www.edge-cloud.net/2022/07/19/hands-on-with-aws-byoip/). In addition a Lambda script triggers regular announce and withdraw actions on this particular prefix. 
 More specifically this AWS BYOIP range is announced every even hour (UTC) and withdrawn every uneven hour (UTC). Therefore looking at BGP route tables at various places around the globe aound this time will provide an indication of the propagation times. 
 
 ### Backend
@@ -30,7 +30,7 @@ can be determined here: ```https://byoip.as213151.net/us-east-1.html```
 ### Frontend
 You can run the "frontend" client - a [Python script](https://github.com/chriselsen/AWS-BYOIP-Propagation/blob/main/scripts/ripe-ris-byoip-client.py) that uses the [RIPE Routing Information Service Live (RIS Live) feed](https://ris-live.ripe.net/). RIS Live is a feed that offers BGP messages in real-time. It collects information from the RIS Route Collectors (RRCs) and uses a WebSocket JSON API to monitor and detect routing events around the world.
 
-By selectively listening to BGP messages related to the IPv6 prefix ```2602:fb2a:00c0::/48``` around hour marks, you can compare the timestamp of messages received by the various RIS Route Collectors (RRCs) to the timestamp from ```https://byoip.as213151.net/us-east-1.html``` on when the corresponding change at the source occured. 
+By selectively listening to BGP messages related to the IPv6 prefix ```2602:fb2a:ff::/48``` around hour marks, you can compare the timestamp of messages received by the various RIS Route Collectors (RRCs) to the timestamp from ```https://byoip.as213151.net/us-east-1.html``` on when the corresponding change at the source occured. 
 
 As an alternative you can also look at the [RIPE Routing Information Service Live (RIS Live) feed](https://ris-live.ripe.net/) directly via a browser. 
 
@@ -44,12 +44,12 @@ Looking at the output of ```https://byoip.as213151.net/us-east-1.html``` around 
 ```
 aws-region: us-east-1
 action: advertise
-prefix: 2602:fb2a:00c0::/48
+prefix: 2602:fb2a:ff::/48
 date: 2022-10-13 00:00:05
 timestamp: 1665619205.24
 ```
 
-Calculating the difference of these timestamps ( 1665619241.04 - 1665619205.24 = 35.8 ) will therefore allow you to determine that this particular ASN at PAIX, Palo Alto, California, US had converged to have a path for the IPv6 prefix ```2602:fb2a:00c0::/48``` at 35.8 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
+Calculating the difference of these timestamps ( 1665619241.04 - 1665619205.24 = 35.8 ) will therefore allow you to determine that this particular ASN at PAIX, Palo Alto, California, US had converged to have a path for the IPv6 prefix ```2602:fb2a:ff::/48``` at 35.8 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
 
 If you are only interested in learning when a certain ASN - e.g. AS213151 - receives the update, stick ```^213151``` into the "path" field if that ASN [peers with RIPE RIS](https://www.ris.ripe.net/peerlist/all.shtml) or ```213151``` otherwise. 
 

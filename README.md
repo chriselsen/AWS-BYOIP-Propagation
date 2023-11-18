@@ -45,6 +45,7 @@ Looking at the output of ```https://byoip.as213151.net/us-east-1.html``` around 
 aws-region: us-east-1
 action: advertise
 prefix: 2602:fb2a:ff::/48
+asn: 213151
 date: 2022-10-13 00:00:05
 timestamp: 1665619205.24
 ```

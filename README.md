@@ -64,3 +64,7 @@ Below is an example, where you can see that a majority of ASN have converged at 
 
 ## IPv4 vs IPv6
 You might ask: "What about IPv4 or peers that don't support IPv6?" or "Can you also set this up with IPv4?". The short answers are: Internet peers that don't support IPv6 nowadays really need to get their act together. And between IPv4 and IPv6 the propagation times should be pretty much the same. Nevertheless, if you have a /24 public IPv4 prefix laying around that you want to donate for this project, let me know. 
+
+## Changelog
+
+* **2023-11-18:** Changed prefix to 2602:fb2a:ff::/48 and added support for [AWS BYOASN](https://docs.aws.amazon.com/vpc/latest/ipam/tutorials-byoasn.html) with the ASN 213151.

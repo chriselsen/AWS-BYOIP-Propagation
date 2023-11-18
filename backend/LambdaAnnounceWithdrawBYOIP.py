@@ -13,7 +13,8 @@ import boto3
 import time
 from datetime import datetime
 
-CIDR = "2602:fb2a:00c0::/48"
+CIDR = "2602:fb2a:ff::/48"
+ASN = "213151"
 BUCKET = <my bucket name> 
 FILE = "us-east-1.html"
 
@@ -24,6 +25,7 @@ def lambda_handler(event, context):
         if event["action"] == "advertise":
             response = client.advertise_byoip_cidr(
                 Cidr=CIDR,
+                Asn=ASN,
                 DryRun=False
             )
         elif event["action"] == "withdraw":
@@ -48,7 +50,7 @@ def lambda_handler(event, context):
     except:
         status = "Unknown"
     
-    results_str = "action: " + status + "<br>prefix: " + CIDR + "<br>date: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S %Z') + "<br>timestamp: " + str(ts)
+    results_str = "action: " + status + "<br>prefix: " + CIDR + "<br>asn: " + ASN + "<br>date: " + "<br>date: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S %Z') + "<br>timestamp: " + str(ts)
     s3 = boto3.resource('s3')
     object = s3.Object(BUCKET, FILE)
     object.put(Body=results_str, ContentType='text/html')

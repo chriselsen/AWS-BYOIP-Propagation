@@ -11,7 +11,11 @@ can be determined here: https://byoip.as213151.net/us-east-1.html
 import json
 import boto3
 import time
+import os
+import traceback
 from datetime import datetime
+
+print("Boto Version: " + boto3.__version__)
 
 CIDR = "2602:fb2a:ff::/48"
 ASN = "213151"
@@ -35,11 +39,11 @@ def lambda_handler(event, context):
             )
         else:
             response = []
-    except:
+    except Exception as error:
         return {
             'statusCode': 500,
-            'body': 'Unknown request'
-        }    
+            'body': traceback.format_exc()
+        }     
     
     ts = round(time.time(), 2)
     try:

@@ -36,7 +36,7 @@ As an alternative you can also look at the [RIPE Routing Information Service Liv
 
 ## Examples
 
-Below you can see the screenshot from ```https://ris-live.ripe.net/``` where an "announcement" UPDATE message was received from ASN 19151 by the RIS Route Collector [RRC14 (PAIX, Palo Alto, California, US)](https://www.ris.ripe.net/peerlist/rrc14.shtml) at the timestamp 1665619241.04. 
+Below you can see the screenshot from ```https://ris-live.ripe.net/``` where an "announcement" UPDATE message was received from ASN 396998 by the RIS Route Collector [RRC11 -- NYIIX, New York City, New York, US)](https://www.ris.ripe.net/peerlist/rrc11.shtml) at the timestamp 1700510430.03. 
 
 ![](https://raw.githubusercontent.com/chriselsen/AWS-BYOIP-Propagation/main/examples/BYOIP-RIPE-RIS-Output.png)
 
@@ -46,11 +46,11 @@ aws-region: us-east-1
 action: advertise
 prefix: 2602:fb2a:ff::/48
 asn: 213151
-date: 2022-10-13 00:00:05
-timestamp: 1665619205.24
+date: 2023-11-20 20:00:06 UTC
+timestamp: 1700510406.78
 ```
 
-Calculating the difference of these timestamps ( 1665619241.04 - 1665619205.24 = 35.8 ) will therefore allow you to determine that this particular ASN at PAIX, Palo Alto, California, US had converged to have a path for the IPv6 prefix ```2602:fb2a:ff::/48``` at 35.8 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
+Calculating the difference of these timestamps ( 1700510430.03 - 1700510406.78 = 23.25 ) will therefore allow you to determine that this particular ASN at NYIIX, New York City, New York, US had converged to have a path for the IPv6 prefix ```2602:fb2a:ff::/48``` at 23.25 seconds after the [AdvertiseByoipCidr](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AdvertiseByoipCidr.html) API was called.
 
 If you are only interested in learning when a certain ASN - e.g. AS213151 - receives the update, stick ```^213151``` into the "path" field if that ASN [peers with RIPE RIS](https://www.ris.ripe.net/peerlist/all.shtml) or ```213151``` otherwise. 
 
